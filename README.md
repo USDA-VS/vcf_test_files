@@ -1,4 +1,11 @@
-# _Mycobacterium bovis_:
+vSNP Testing Files
+======================
+
+This document shows a small dataset that can be downloaded from NCBI SRA.  Brief instructions are provided.  It includes six Mycobacterium bovis and five Brucella suis biovar 1.  Average coverage varies from 60X to 230X.  Expect the SRA download to take a couple hours, depending on network speeds.  All FASTQ files can be ran together.  vSNP will determine the "best reference".  VCF output can be compared to the VCF files contained in the zipped files.  A successful run will produce VCF files very much if not exactly the same as those provided.  
+
+Either the VCF files you create or the files provided in the zipped files can be use to test table generation.  Tables output should be very similar if not exactly the same as the tables provided.
+
+## _Mycobacterium bovis_:
 
 00-1MIDNRdeerAlc --> SRR8073662  
 10-7224_MI_Emm_Beef_48 --> SRR1792265  
@@ -7,7 +14,7 @@
 00-5559_MI_Alco_Beef_9 --> SRR1791698  
 02-0572_MI_Alco_Beef_18 --> SRR1791772  
 
-# _Brucella suis biovar 1_:
+## _Brucella suis biovar 1_:
 B13-0234_zc.vcf --> SRR2058984  
 B13-0235_zc.vcf --> SRR2058985  
 B13-0237_zc.vcf --> SRR2058987  
@@ -38,9 +45,21 @@ for i in *_2.fastq.gz; do mv $i ${i%_2.fastq.gz}_R2.fastq.gz; done
 ## Download Metadata
 for i in \`cat list`; do wget -O ${i}.csv "http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term= $i"; done
 
-# Run vSNP
+# Run vSNP of FASTQ files
+
+Working directory containing downloaded FASTQs
 
 $ `vSNP.py`
+
+To test reproducibility of step 1 VCF files output can be compared to pre-made VCF files.
+
+# Run vSNP on pre-made VCF files
+
+bovis_starting_files.zip  
+suis1_starting_files.zip
+
+Unzip files, set working directory to contain only VCF files.  
+Bovis and suis1 VCF files must be ran separately.
 
 # Expected table results
 Mbovis-01_D20190125_1134-organized-table.xlsx
